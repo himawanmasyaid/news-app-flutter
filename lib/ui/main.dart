@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_flutter/ui/screen/home/home_screen.dart';
+import 'package:news_app_flutter/ui/screen/splash/splash_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -11,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'News App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -31,7 +34,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const SplashScreen(),
+      routes: {
+        '/home': (context) => const HomeScreen(),
+      },
+      // home: const MyHomePage(title: 'Flutter Demo Home Page'), // old code
     );
   }
 }
