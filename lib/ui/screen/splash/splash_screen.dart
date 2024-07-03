@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:news_app_flutter/data/constants.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -12,7 +11,6 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, '/home');
