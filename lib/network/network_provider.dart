@@ -4,8 +4,7 @@ import 'package:http/http.dart' as http;
 
 class NetworkProvider {
   final http.Client _client = http.Client();
-  final String _apiKey = 'e8c6268442f94048b6483b13d122aed6';
-  // final String _apiKey = 'YOUR_API_KEY';
+  final String _apiKey = 'YOUR_API_KEY';
   final String _baseUrl = 'https://newsapi.org/v2';
 
   Future<dynamic> get(String url) async {
