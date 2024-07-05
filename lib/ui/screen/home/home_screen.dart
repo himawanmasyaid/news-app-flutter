@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app_flutter/data/constants.dart';
+import 'package:news_app_flutter/data/model/article_model.dart';
+import 'package:news_app_flutter/data/repository/news_repository_impl.dart';
+import 'package:news_app_flutter/domain/repository/news_repository.dart';
+import 'package:news_app_flutter/bloc/article/article_bloc.dart';
+import 'package:news_app_flutter/bloc/article/article_event.dart';
+import 'package:news_app_flutter/bloc/article/article_state.dart';
 import 'package:news_app_flutter/ui/screen/home/bloc/news_bloc.dart';
 import 'package:news_app_flutter/ui/screen/home/bloc/news_event.dart';
 import 'package:news_app_flutter/ui/screen/home/bloc/news_state.dart';
@@ -11,12 +17,14 @@ class HomeScreen extends StatefulWidget {
   static const routeName = '/home';
 
   @override
-  State<HomeScreen> createState() => _MyWidgetState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _MyWidgetState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    // context.read<ArticleBloc>().add(LoadArticlesEvent());
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -26,22 +34,36 @@ class _MyWidgetState extends State<HomeScreen> {
         elevation: 1.0,
         backgroundColor: Colors.black,
       ),
-      body: BlocBuilder<NewsBloc, NewsState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state.errorMessage!.isNotEmpty) {
-            return Center(child: Text('Error: ${state.errorMessage}'));
-          } else {
-            return NewsListView(articles: state.articles);
-          }
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<NewsBloc>().add(GetNewsEventSample());
-        },
-        child: const Icon(Icons.refresh),
+
+      // to show sample list data
+      // body: NewsListView(
+      //   articles: [
+      //     ArticleModel(
+      //       author: "Author 1",
+      //       title: "Title 1",
+      //       description: "Description 1",
+      //       url: "https://example.com/article1",
+      //       urlToImage: "https://example.com/image1",
+      //       publishedAt: "2022-01-01T12:00:00Z",
+      //       content: "Content 1",
+      //     ),
+      //     ArticleModel(
+      //       author: "Author 1",
+      //       title: "Title 1",
+      //       description: "Description 1",
+      //       url: "https://example.com/article1",
+      //       urlToImage: "https://example.com/image1",
+      //       publishedAt: "2022-01-01T12:00:00Z",
+      //       content: "Content 1",
+      //     ),
+      //   ],
+      // ),
+
+      // to show data sample form news repository
+      body: BlocProvider(
+        create: (_) => ArticleBloc(NewsRepositoryImpl()),
+        // child: const Center(child: CircularProgressIndicator()),
+        child: const NewsListView(),
       ),
     );
   }
