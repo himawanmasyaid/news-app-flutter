@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_flutter/data/repository/news_repository_impl.dart';
+import 'package:news_app_flutter/bloc/article/article_bloc.dart';
 import 'package:news_app_flutter/ui/screen/home/home_screen.dart';
 import 'package:news_app_flutter/ui/screen/splash/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<ArticleBloc>(
+          create: (BuildContext context) => ArticleBloc(NewsRepositoryImpl()),
+        )
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
