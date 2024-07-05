@@ -1,5 +1,8 @@
-abstract class NewsEvent {}
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_flutter/data/model/article_model.dart';
 
-class FetchTopHeadlines extends NewsEvent {}
+abstract class NewsEvent {
+  final List<ArticleModel> article;
 
-class GetNewsEventSample extends NewsEvent {}
+  NewsEvent(this.article);
+}

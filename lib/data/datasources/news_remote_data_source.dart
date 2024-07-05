@@ -31,7 +31,7 @@ class NewsRemoteDataSource {
 
   Future<List<ArticleModel>> getNewsSample() async {
     // Simulate API call
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     return [
       ArticleModel(
         author: "Author 1",
